@@ -73,6 +73,13 @@ Items can be dragged between the **inventory bag**, the **chest**, and the
 State lives in `Astral.data.inventory/vault/pvp`; hook the moves to your
 backend by reacting to those arrays.
 
+## Native app (Kotlin)
+
+A pure-native Android port (Kotlin + Jetpack Compose, no HTML/JS) lives in
+[`android/`](android/README.md). It mirrors all five screens with in-memory
+navigation and the same empty-by-design data layer and purchase process.
+It builds with Gradle/Android Studio — not in the web CI or this sandbox.
+
 ## Local preview
 
 Any static server works:
