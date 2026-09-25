@@ -485,9 +485,7 @@ main {
 .bottom-nav.nav-hidden { transform: translateY(140%); opacity: 0; }
 .bottom-nav-inner {
   position: relative; width: auto; margin: 0 auto;
-  background: rgba(0,0,0,0.8);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: rgba(5,5,8,0.96);
   border: 0.5px solid rgba(255,255,255,0.1);
   border-radius: 999px;
   box-shadow: 0 14px 34px rgba(0,0,0,0.7);

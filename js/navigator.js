@@ -300,6 +300,8 @@
     if (!canvas) return;
     const ctx = canvas.getContext && canvas.getContext("2d");
     if (!ctx) return;
+    // cheap ambient effect: skip entirely for reduced-motion users
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     resize();
     window.addEventListener("resize", resize);
@@ -312,21 +314,29 @@
       y: sc ? rand(-canvas.height * 0.5, 0) : rand(-10, -2),
       size: rand(0.2, 0.6), speed: rand(0.08, 0.28), drift: rand(-0.05, 0.05), opacity: rand(0.08, 0.22),
     });
-    const pts = Array.from({ length: 120 }, () => mk(true));
-    function loop() {
+    const pts = Array.from({ length: 45 }, () => mk(true));
+    let raf = 0, running = false;
+    function frame() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(220,180,80,1)";
       for (const p of pts) {
         const t = p.y / canvas.height;
         const a = t < FS ? p.opacity : (t > FE ? 0 : p.opacity * (1 - ((t - FS) / (FE - FS)) ** 2));
         p.y += p.speed; p.x += p.drift;
         if (p.y > canvas.height * FE + 5) { Object.assign(p, mk(false)); continue; }
         if (a <= 0) continue;
-        ctx.save(); ctx.globalAlpha = a; ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fillStyle = "rgba(220,180,80,1)"; ctx.fill(); ctx.restore();
+        ctx.globalAlpha = a;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
       }
-      requestAnimationFrame(loop);
+      ctx.globalAlpha = 1;
+      raf = requestAnimationFrame(frame);
     }
-    loop();
+    function start() { if (!running) { running = true; raf = requestAnimationFrame(frame); } }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+    document.addEventListener("visibilitychange", () => { if (document.hidden) stop(); else start(); });
+    start();
   }
 
   /* ── page title from data-page, when present ── */
@@ -357,9 +367,12 @@
       Astral.go(pageFromLocation(), { push: false });
     });
 
-    // warm the page cache so the first switch is instant
-    const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 350));
-    idle(() => { Object.keys(Astral.pageMeta).forEach((n) => { fetchPage(n).catch(() => {}); }); });
+    // Warm everything up front so tab switches are pure in-memory swaps:
+    // fetch every page's <main> and load every page script right away.
+    Object.keys(Astral.pageMeta).forEach((n) => {
+      fetchPage(n).catch(() => {});
+      if (n !== current) ensureScript(n);
+    });
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);

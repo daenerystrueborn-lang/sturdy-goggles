@@ -21,6 +21,7 @@ css/styles.css                                           All styling + @font-fac
 js/navigator.js                                          Shared shell: fonts, nav, starfield, empty data layer, SPA router
 js/app.js / js/season.js / js/shop.js / js/profile.js   Per-page renderers
 js/topup.js                                              Top-up renderer + purchase-request process
+serve.py                                                 Dev server with no-cache headers for the live preview
 assets/fonts/                                            Poppins & Montserrat woff2 (bundled — no CDN needed)
 assets/                                                  Reserved for real images / assets (empty)
 .github/workflows/                                       Build + upload-artifact workflow
@@ -79,6 +80,7 @@ Any static server works:
 ```sh
 npx serve .          # or
 python3 -m http.server 8000
+python3 serve.py     # same, but no-cache headers (live-preview dev server)
 ```
 
 ## Build / artifact
