@@ -74,6 +74,33 @@ data class ServerOffer(
     val image: String = "",
 )
 
+/* ── Dungeon prep + battle ── */
+
+data class DungeonInfo(
+    val id: String = "",
+    val name: String = "",
+    val floor: Int? = null,
+    val difficulty: String = "", // e.g. "E-Rank", "S-Rank"
+    val recommendedLevel: Int? = null,
+    val rewardsPreview: String = "", // short label, e.g. "250 Solars · Astral Dust"
+    val image: String = "",
+)
+
+data class PartyMember(
+    val id: String = "",
+    val name: String = "",
+    val avatar: String = "",
+    val level: Int? = null,
+    val ready: Boolean = false,
+)
+
+data class LoadoutState(
+    val weapon: InvItem? = null,
+    val armor: InvItem? = null,
+    val relic: InvItem? = null,
+    val consumable: InvItem? = null,
+)
+
 object Astral {
     val player = mutableStateOf(Player())
     val banner = mutableStateOf("")
@@ -83,13 +110,20 @@ object Astral {
     val notifications = mutableStateListOf<Notification>()
     val shop = mutableStateListOf<ShopItem>()
     val roster = mutableStateListOf<SeasonCharacter>()
-    val dungeons = mutableStateListOf<SeasonCharacter>()
+    val dungeons = mutableStateListOf<DungeonInfo>()
     val friends = mutableStateListOf<Player>()
 
     val season = mutableStateOf(Season())
 
     val inventory = mutableStateListOf<InvItem>()
     val vault = mutableStateListOf<InvItem>()
+
+    // dungeon prep screen state — empty by design, hydrate from backend
+    val selectedDungeon = mutableStateOf<DungeonInfo?>(null)
+    val loadout = mutableStateOf(LoadoutState())
+    val party = mutableStateListOf<PartyMember>()
+
+    val battle = Battle()
     val pvp = mutableStateListOf<InvItem>()
 
     val topUp = TopUp()

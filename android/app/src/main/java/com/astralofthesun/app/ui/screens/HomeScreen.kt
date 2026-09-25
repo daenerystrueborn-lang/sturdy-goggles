@@ -39,7 +39,7 @@ import com.astralofthesun.app.ui.theme.Primary
 import com.astralofthesun.app.ui.theme.TextDim
 
 @Composable
-fun HomeScreen(goTopUp: (String) -> Unit) {
+fun HomeScreen(goTopUp: (String) -> Unit, goDungeon: () -> Unit) {
     val player by Astral.player
     val stats by Astral.stats
     val shop = Astral.shop
@@ -123,7 +123,17 @@ fun HomeScreen(goTopUp: (String) -> Unit) {
 
         // dungeons
         item { SectionHeader("Dungeons & Runs", "${dungeons.size} available") }
-        item { if (dungeons.isEmpty()) EmptyNote("No dungeons available") }
+        item {
+            if (dungeons.isEmpty()) {
+                EmptyNote("No dungeons available")
+            } else {
+                Button(
+                    onClick = goDungeon,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(containerColor = Primary),
+                ) { Text("Prepare for Dungeon") }
+            }
+        }
 
         // friends
         item { SectionHeader("Friends", "${friends.size}") }

@@ -25,6 +25,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.sp
+import com.astralofthesun.app.data.Astral
+import com.astralofthesun.app.ui.screens.DungeonBattleScreen
+import com.astralofthesun.app.ui.screens.DungeonPrepScreen
 import com.astralofthesun.app.ui.screens.HomeScreen
 import com.astralofthesun.app.ui.screens.ProfileScreen
 import com.astralofthesun.app.ui.screens.SeasonScreen
@@ -33,12 +36,14 @@ import com.astralofthesun.app.ui.screens.TopUpScreen
 import com.astralofthesun.app.ui.theme.Bg
 import com.astralofthesun.app.ui.theme.Gold
 
-enum class Screen(val label: String, val icon: ImageVector) {
+enum class Screen(val label: String, val icon: ImageVector, val inNav: Boolean = true) {
     Home("Home", Icons.Filled.Home),
     Season("Season", Icons.Filled.Star),
     Shop("Shop", Icons.Filled.ShoppingBag),
     TopUp("Top-up", Icons.Filled.Wallet),
     Profile("Profile", Icons.Filled.Person),
+    DungeonPrep("Dungeon", Icons.Filled.Home, inNav = false), // reached from Home, not a nav tab
+    DungeonBattle("Battle", Icons.Filled.Home, inNav = false), // reached from DungeonPrep only
 }
 
 /* Root scaffold. Navigation is a plain in-memory enum switch, so moving
@@ -52,7 +57,7 @@ fun App() {
         containerColor = Bg,
         bottomBar = {
             NavigationBar(containerColor = Color(0xFF050508)) {
-                Screen.entries.forEach { screen ->
+                Screen.entries.filter { it.inNav }.forEach { screen ->
                     NavigationBarItem(
                         selected = current == screen,
                         onClick = { current = screen },
@@ -72,11 +77,24 @@ fun App() {
     ) { padding ->
         Box(Modifier.fillMaxSize().padding(padding)) {
             when (current) {
-                Screen.Home -> HomeScreen(goTopUp = { cur -> topUpCurrency = cur; current = Screen.TopUp })
+                Screen.Home -> HomeScreen(
+                    goTopUp = { cur -> topUpCurrency = cur; current = Screen.TopUp },
+                    goDungeon = { current = Screen.DungeonPrep },
+                )
                 Screen.Season -> SeasonScreen()
                 Screen.Shop -> ShopScreen()
                 Screen.TopUp -> TopUpScreen(initialCurrency = topUpCurrency)
                 Screen.Profile -> ProfileScreen()
+                Screen.DungeonPrep -> DungeonPrepScreen(
+                    onEnterDungeon = { current = Screen.DungeonBattle },
+                    onBack = { current = Screen.Home },
+                )
+                Screen.DungeonBattle -> DungeonBattleScreen(
+                    onExit = {
+                        Astral.battle.reset()
+                        current = Screen.Home
+                    },
+                )
             }
         }
     }
