@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Astral of the Sun — Season</title>
+  <meta name="description" content="Astral of the Sun — season pass and battle pass.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="season">
+
+  <canvas id="c" aria-hidden="true"></canvas>
+
+  <main class="page">
+
+    <header class="page-head">
+      <h1 class="page-title" data-page-title>Season</h1>
+      <div class="page-sub"><span data-bind="season.title" data-empty="Season —"></span> <span data-bind="season.duration" data-empty=""></span></div>
+    </header>
+
+    <!-- large season banner -->
+    <div class="season-banner img-ph" id="seasonBanner" role="img" aria-label="Season banner"></div>
+
+    <!-- battle pass -->
+    <section class="season-pass-card">
+      <div class="pass-head">
+        <div class="pass-tier">Tier <span data-bind="season.tierIndex" data-empty="0"></span> / <span data-bind="season.tierCount" data-empty="0"></span></div>
+        <div class="pass-xp"><span data-bind="season.xpCurrent" data-empty="0"></span> / <span data-bind="season.xpNeeded" data-empty="0"></span> XP</div>
+      </div>
+      <div class="pass-bar"><div class="pass-bar-fill" id="passBarFill"></div></div>
+
+      <div class="pass-tabs" role="tablist">
+        <button class="pass-tab active" type="button" id="tabFree">Free</button>
+        <button class="pass-tab" type="button" id="tabPremium">Premium</button>
+      </div>
+
+      <div class="pass-track" id="passTrack">
+        <div class="empty-note">No rewards yet</div>
+      </div>
+    </section>
+
+    <!-- reward strip (horizontal) -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Season Rewards</h2>
+        <div class="section-meta"><span data-bind="counts.rewards" data-empty="0"></span> rewards</div>
+      </div>
+      <div class="reward-strip" id="rewardStrip"></div>
+    </section>
+
+    <!-- season characters -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Season Characters</h2>
+        <div class="section-meta"><span data-bind="counts.characters" data-empty="0"></span> available</div>
+      </div>
+      <div class="season-char-grid" id="seasonChars"></div>
+    </section>
+
+  </main>
+
+  <!-- bottom nav -->
+  <nav class="bottom-nav" id="bottomNav" aria-label="Primary">
+    <div class="bottom-nav-inner">
+      <div class="nav-pill" id="navPill"></div>
+
+      <button class="nav-tab" data-page="home" data-href="index.html" type="button" aria-label="Home">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1v-8.5Z" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        </span>
+      </button>
+
+      <button class="nav-tab" data-page="season" data-href="season.html" type="button" aria-label="Season">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2v20M4.5 6.5c3 2 5 2 7.5 0s4.5-2 7.5 0M4.5 12c3 2 5 2 7.5 0s4.5-2 7.5 0M4.5 17.5c3 2 5 2 7.5 0s4.5-2 7.5 0" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </button>
+
+      <button class="nav-tab" data-page="shop" data-href="shop.html" type="button" aria-label="Shop">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        </span>
+      </button>
+
+      <button class="nav-tab" data-page="profile" data-href="profile.html" type="button" aria-label="Profile">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.2-4 4-6 7-6s5.8 2 7 6" stroke-linecap="round"/></svg>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <script src="js/navigator.js" defer></script>
+  <script src="js/season.js" defer></script>
+</body>
+</html>

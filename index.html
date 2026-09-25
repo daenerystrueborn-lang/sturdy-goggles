@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Astral of the Sun</title>
+  <title>Astral of the Sun — Home</title>
   <meta name="description" content="Astral of the Sun — a data-driven companion home screen.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body data-page="home">
 
   <canvas id="c" aria-hidden="true"></canvas>
 
@@ -198,25 +201,25 @@
     <div class="bottom-nav-inner">
       <div class="nav-pill" id="navPill"></div>
 
-      <button class="nav-tab active" data-tab="home" type="button" aria-label="Home">
+      <button class="nav-tab" data-page="home" data-href="index.html" type="button" aria-label="Home">
         <span class="nav-icon">
           <svg viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1v-8.5Z" stroke-linejoin="round" stroke-linecap="round"/></svg>
         </span>
       </button>
 
-      <button class="nav-tab" data-tab="season" type="button" aria-label="Season">
+      <button class="nav-tab" data-page="season" data-href="season.html" type="button" aria-label="Season">
         <span class="nav-icon">
           <svg viewBox="0 0 24 24"><path d="M12 2v20M4.5 6.5c3 2 5 2 7.5 0s4.5-2 7.5 0M4.5 12c3 2 5 2 7.5 0s4.5-2 7.5 0M4.5 17.5c3 2 5 2 7.5 0s4.5-2 7.5 0" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
       </button>
 
-      <button class="nav-tab" data-tab="shop" type="button" aria-label="Shop">
+      <button class="nav-tab" data-page="shop" data-href="shop.html" type="button" aria-label="Shop">
         <span class="nav-icon">
           <svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
         </span>
       </button>
 
-      <button class="nav-tab" data-tab="profile" type="button" aria-label="Profile">
+      <button class="nav-tab" data-page="profile" data-href="profile.html" type="button" aria-label="Profile">
         <span class="nav-icon">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.2-4 4-6 7-6s5.8 2 7 6" stroke-linecap="round"/></svg>
         </span>
@@ -277,6 +280,7 @@
     <button class="btn btn-primary" type="button">View</button>
   </template>
 
+  <script src="js/navigator.js" defer></script>
   <script src="js/app.js" defer></script>
 </body>
 </html>

@@ -15,6 +15,12 @@ html, body {
   color: #fff;
 }
 
+/* Titles use Montserrat bold */
+h1, h2, .section-title, .page-title, .profile-name, .shop-name,
+.roster-name, .row-title, .notif-item-title, .stat-value {
+  font-family: "Montserrat", "Poppins", sans-serif;
+}
+
 canvas#c {
   position: fixed;
   top: 0; left: 0;
@@ -462,3 +468,311 @@ main {
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* ============================================================
+   Shared page chrome
+   ============================================================ */
+.page {
+  position: relative;
+  z-index: 1;
+  padding: calc(env(safe-area-inset-top, 0px) + 16px) 16px calc(env(safe-area-inset-bottom, 0px) + 120px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.page-title {
+  font-size: 20px; font-weight: 800;
+  letter-spacing: 0.02em;
+  margin: 2px 0 0;
+}
+.page-sub {
+  font-size: 12px; font-weight: 300;
+  color: rgba(255,255,255,0.35);
+  margin-top: 2px;
+}
+
+.empty-note {
+  padding: 22px 12px;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.32);
+  border: 1px dashed rgba(255,255,255,0.14);
+  border-radius: 16px;
+}
+
+.img-ph {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.06), transparent 60%),
+    rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  position: relative;
+}
+.img-ph::after {
+  content: '＋';
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; color: rgba(255,255,255,0.22);
+}
+.img-ph.has-img { background-size: cover; background-position: center; background-color: transparent; }
+.img-ph.has-img::after { content: ''; }
+
+/* ============================================================
+   Season page
+   ============================================================ */
+.season-banner {
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 22px 55px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+.season-pass-card {
+  background: #060606;
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 16px;
+}
+.pass-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
+.pass-tier { font-size: 13px; font-weight: 800; }
+.pass-xp { font-size: 11px; color: rgba(255,255,255,0.4); }
+.pass-bar {
+  height: 8px; border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  overflow: hidden; margin-top: 10px;
+}
+.pass-bar-fill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, #f5c44a, #ffe08a);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+.pass-tabs { display: flex; gap: 8px; margin-top: 16px; }
+.pass-tab {
+  flex: 1; padding: 8px 0;
+  text-align: center; font-size: 12px; font-weight: 700;
+  color: rgba(255,255,255,0.5);
+  background: transparent;
+  border: 0.5px solid rgba(255,255,255,0.12);
+  border-radius: 12px; cursor: pointer;
+}
+.pass-tab.active { color: #0a0a0a; background: #fff; border-color: #fff; }
+
+.track-row {
+  display: flex; gap: 10px; align-items: center;
+  padding: 10px 0;
+  border-top: 0.5px solid rgba(255,255,255,0.07);
+}
+.track-row:first-of-type { border-top: none; }
+.track-side {
+  width: 44px; flex-shrink: 0;
+  font-size: 10px; font-weight: 700; text-align: center;
+  padding: 3px 0; border-radius: 8px;
+}
+.track-side.free { color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.08); }
+.track-side.premium { color: #f5c44a; background: rgba(245,196,74,0.14); }
+.track-thumb { width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0; }
+.track-info { flex: 1; min-width: 0; }
+.track-tier { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.5); }
+.track-title { font-size: 13px; font-weight: 700; }
+
+/* reward strip */
+.reward-strip { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; margin: 0 -4px; }
+.reward-strip::-webkit-scrollbar { display: none; }
+.reward {
+  flex: 0 0 62px;
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  text-align: center;
+}
+.reward-thumb { width: 52px; height: 52px; border-radius: 12px; }
+.reward-tier { font-size: 9.5px; font-weight: 700; color: rgba(255,255,255,0.4); }
+.reward-title { font-size: 9.5px; color: rgba(255,255,255,0.55); max-width: 60px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* season characters */
+.season-char-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.season-char {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(255,255,255,0.09);
+  border-radius: 16px;
+  padding: 12px 8px 10px;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 5px; text-align: center;
+}
+.season-char-av { width: 54px; height: 54px; border-radius: 50%; }
+.season-char-name { font-size: 12px; font-weight: 700;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.season-char-meta { font-size: 9.5px; color: rgba(255,255,255,0.35); }
+.season-char-cp { font-size: 10.5px; font-weight: 700; color: #f5c44a; }
+
+/* ============================================================
+   Shop page
+   ============================================================ */
+.currency-bar {
+  display: flex; align-items: center; gap: 10px;
+  background: #060606;
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  padding: 12px 14px;
+}
+.currency-bar .label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.06em; }
+.currency-bar .balance {
+  margin-left: auto;
+  display: flex; align-items: center; gap: 6px;
+  font-size: 16px; font-weight: 800; color: #f5c44a;
+}
+.currency-bar .balance .coin { width: 18px; height: 18px; }
+.currency-bar .gem { width: 16px; height: 16px; display: inline-block; }
+
+.shop-toolbar { display: flex; gap: 8px; }
+.shop-search {
+  flex: 1;
+  background: #0a0a0a;
+  border: 0.5px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 9px 12px;
+  color: #fff; font-family: inherit; font-size: 13px;
+}
+.shop-search::placeholder { color: rgba(255,255,255,0.3); }
+.shop-filter { display: flex; gap: 8px; overflow-x: auto; margin: 0 -4px; padding: 0 4px 2px; }
+.shop-filter::-webkit-scrollbar { display: none; }
+.chip {
+  font-size: 11px; font-weight: 600;
+  padding: 6px 12px; border-radius: 999px;
+  background: transparent; color: rgba(255,255,255,0.55);
+  border: 0.5px solid rgba(255,255,255,0.16); cursor: pointer;
+  white-space: nowrap;
+}
+.chip.active { background: #fff; color: #000; border-color: #fff; }
+
+.shop-page-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* ============================================================
+   Profile page
+   ============================================================ */
+.profile-banner {
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 0 22px 55px rgba(0,0,0,0.65);
+}
+.profile-identity {
+  display: flex; align-items: flex-end;
+  gap: 12px;
+  margin-top: -34px;            /* pfp overlaps the banner */
+  padding: 0 8px;
+}
+.profile-pfp {
+  width: 76px; height: 76px;
+  border-radius: 22px;
+  border: 3px solid #000;
+  flex-shrink: 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+}
+.profile-id-name { font-size: 18px; font-weight: 800; line-height: 1.15; }
+.profile-id-sub { font-size: 11.5px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+.profile-stats {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
+}
+.pstat {
+  background: #060606;
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 10px 8px; text-align: center;
+}
+.pstat-label { font-size: 9px; font-weight: 600; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.06em; }
+.pstat-value { font-size: 15px; font-weight: 800; margin-top: 3px;
+  display: flex; align-items: center; justify-content: center; gap: 5px; }
+.pstat-value .coin { width: 13px; height: 13px; }
+
+.wallet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.wallet-card {
+  background: #060606;
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: 14px; padding: 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.wallet-card .wallet-ico { width: 34px; height: 34px; border-radius: 10px; background: rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.wallet-card .wallet-label { font-size: 10px; color: rgba(255,255,255,0.35); }
+.wallet-card .wallet-value { font-size: 15px; font-weight: 800; margin-top: 2px; display: flex; align-items: center; gap: 5px; }
+.wallet-card .wallet-value .coin { width: 13px; height: 13px; }
+
+.inventory-open {
+  width: 100%;
+  padding: 13px 0;
+  border-radius: 14px;
+  border: 0.5px solid rgba(255,255,255,0.2);
+  background: #6a63f2;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px; font-weight: 800;
+  cursor: pointer; letter-spacing: 0.04em;
+}
+.inventory-open:active { opacity: 0.85; }
+
+/* ── inventory overlay (drag & drop) ── */
+.inv-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.92);
+  display: none;
+  flex-direction: column;
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) 16px calc(env(safe-area-inset-bottom, 0px) + 16px);
+}
+.inv-overlay.open { display: flex; }
+.inv-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.inv-close {
+  background: #0a0a0a; border: 0.5px solid rgba(255,255,255,0.14);
+  color: #fff; border-radius: 10px; width: 36px; height: 36px;
+  font-size: 16px; cursor: pointer; flex-shrink: 0;
+}
+.inv-title { font-size: 17px; font-weight: 800; }
+.inv-hint { font-size: 10.5px; color: rgba(255,255,255,0.35); margin-left: auto; text-align: right; }
+
+.inv-bag {
+  flex: 1;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 10px; align-content: start;
+  overflow-y: auto;
+  padding: 4px;
+}
+.inv-item {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: grab;
+  user-select: none;
+}
+.inv-item:active { cursor: grabbing; }
+.inv-item .inv-name {
+  position: absolute; bottom: 6px; left: 8px; right: 8px;
+  font-size: 9.5px; font-weight: 600;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  color: rgba(255,255,255,0.6);
+}
+.inv-item.dragging { opacity: 0.4; }
+
+/* drop targets */
+.inv-zones { display: flex; gap: 10px; margin-top: 12px; }
+.inv-zone {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border: 1.5px dashed rgba(255,255,255,0.18);
+  border-radius: 14px;
+  min-height: 90px;
+  padding: 10px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px; text-align: center;
+}
+.inv-zone .zone-title { font-size: 11px; font-weight: 800; letter-spacing: 0.05em; }
+.inv-zone .zone-sub { font-size: 9.5px; color: rgba(255,255,255,0.35); }
+.inv-zone .zone-items { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.inv-zone .mini {
+  width: 30px; height: 30px; border-radius: 8px;
+  position: relative;
+}
+.inv-zone.drag-over { border-color: #f5c44a; background: rgba(245,196,74,0.08); }
