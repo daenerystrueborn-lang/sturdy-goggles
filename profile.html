@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Astral of the Sun — Profile</title>
+  <meta name="description" content="Astral of the Sun — player profile, inventory and wallet.">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="profile">
+
+  <canvas id="c" aria-hidden="true"></canvas>
+
+  <main class="page">
+
+    <!-- banner -->
+    <div class="profile-banner img-ph" id="profileBanner" role="img" aria-label="Profile banner"></div>
+
+    <!-- identity (pfp overlaps the banner) -->
+    <div class="profile-identity">
+      <div class="profile-pfp img-ph" id="profilePfp" role="img" aria-label="Profile picture"></div>
+      <div class="profile-id">
+        <div class="profile-id-name" data-bind="player.name" data-empty="Player"></div>
+        <div class="profile-id-sub" data-bind="player.sub" data-empty="—"></div>
+      </div>
+    </div>
+
+    <!-- stats -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Player Stats</h2>
+      </div>
+      <div class="profile-stats">
+        <div class="pstat">
+          <div class="pstat-label">Level</div>
+          <div class="pstat-value" data-bind="stats.level" data-empty="—"></div>
+        </div>
+        <div class="pstat">
+          <div class="pstat-label">Solars</div>
+          <div class="pstat-value">
+            <span data-bind="stats.solars" data-empty="0"></span>
+            <svg class="coin" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" fill="#f5c44a"/>
+              <circle cx="12" cy="12" r="6.4" fill="#e6a90d"/>
+              <text x="12" y="16.2" text-anchor="middle" font-size="12" font-weight="700" fill="#7a5200">$</text>
+            </svg>
+          </div>
+        </div>
+        <div class="pstat">
+          <div class="pstat-label">Gems</div>
+          <div class="pstat-value">
+            <span data-bind="stats.gems" data-empty="0"></span>
+            <svg class="gem" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 3h12l4 6-10 12L2 9l4-6Z" fill="rgba(255,255,255,0.12)" stroke="#ffffff" stroke-width="1.4" stroke-linejoin="round"/>
+              <path d="M2 9h20M9 3 7 9l5 12M15 3l2 6-5 12" stroke="rgba(255,255,255,0.4)" stroke-width="1" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- wallet -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Wallet</h2>
+      </div>
+      <div class="wallet-grid">
+        <div class="wallet-card">
+          <div class="wallet-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" fill="#f5c44a"/>
+              <circle cx="12" cy="12" r="6.4" fill="#e6a90d"/>
+              <text x="12" y="16.2" text-anchor="middle" font-size="12" font-weight="700" fill="#7a5200">$</text>
+            </svg>
+          </div>
+          <div>
+            <div class="wallet-label">Solars</div>
+            <div class="wallet-value" data-bind="wallet.solars" data-empty="0"></div>
+          </div>
+        </div>
+        <div class="wallet-card">
+          <div class="wallet-ico">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 3h12l4 6-10 12L2 9l4-6Z" fill="rgba(255,255,255,0.12)" stroke="#ffffff" stroke-width="1.4" stroke-linejoin="round"/>
+              <path d="M2 9h20M9 3 7 9l5 12M15 3l2 6-5 12" stroke="rgba(255,255,255,0.4)" stroke-width="1" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="wallet-label">Gems</div>
+            <div class="wallet-value" data-bind="wallet.gems" data-empty="0"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- inventory -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Inventory</h2>
+        <div class="section-meta"><span data-bind="counts.inventory" data-empty="0"></span> items</div>
+      </div>
+      <button class="inventory-open" id="openInventory" type="button">Open Inventory &amp; Chest</button>
+    </section>
+
+  </main>
+
+  <!-- inventory overlay (drag & drop between inventory / chest / PvP) -->
+  <div class="inv-overlay" id="invOverlay" role="dialog" aria-modal="true" aria-label="Inventory">
+    <div class="inv-top">
+      <button class="inv-close" id="invClose" type="button" aria-label="Close inventory">&times;</button>
+      <div class="inv-title">Inventory &amp; Chest</div>
+      <div class="inv-hint">Drag items between zones</div>
+    </div>
+
+    <div class="inv-bag" id="invBag"></div>
+
+    <div class="inv-zones">
+      <div class="inv-zone" id="zoneChest" data-zone="vault">
+        <div class="zone-title">Chest</div>
+        <div class="zone-sub">Store gear</div>
+        <div class="zone-items" id="zoneChestItems"></div>
+      </div>
+      <div class="inv-zone" id="zonePvp" data-zone="pvp">
+        <div class="zone-title">PvP Loadout</div>
+        <div class="zone-sub">Battle gear</div>
+        <div class="zone-items" id="zonePvpItems"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- bottom nav -->
+  <nav class="bottom-nav" id="bottomNav" aria-label="Primary">
+    <div class="bottom-nav-inner">
+      <div class="nav-pill" id="navPill"></div>
+
+      <button class="nav-tab" data-page="home" data-href="index.html" type="button" aria-label="Home">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1v-8.5Z" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        </span>
+      </button>
+
+      <button class="nav-tab" data-page="season" data-href="season.html" type="button" aria-label="Season">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2v20M4.5 6.5c3 2 5 2 7.5 0s4.5-2 7.5 0M4.5 12c3 2 5 2 7.5 0s4.5-2 7.5 0M4.5 17.5c3 2 5 2 7.5 0s4.5-2 7.5 0" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </button>
+
+      <button class="nav-tab" data-page="shop" data-href="shop.html" type="button" aria-label="Shop">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        </span>
+      </button>
+
+      <button class="nav-tab" data-page="profile" data-href="profile.html" type="button" aria-label="Profile">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.2-4 4-6 7-6s5.8 2 7 6" stroke-linecap="round"/></svg>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <script src="js/navigator.js" defer></script>
+  <script src="js/profile.js" defer></script>
+</body>
+</html>

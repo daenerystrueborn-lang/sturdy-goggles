@@ -1,0 +1,13 @@
+# Build artifacts
+astral-of-the-sun/
+*.zip
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Node (if a local server/tooling is ever added)
+node_modules/
