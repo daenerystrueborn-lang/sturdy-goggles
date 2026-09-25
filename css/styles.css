@@ -612,6 +612,7 @@ main {
   border-radius: 12px; cursor: pointer;
 }
 .pass-tab.active { color: #0a0a0a; background: #fff; border-color: #fff; }
+.pass-track { margin-top: 12px; }
 
 .track-row {
   display: flex; gap: 10px; align-items: center;
@@ -830,3 +831,62 @@ main {
   position: relative;
 }
 .inv-zone.drag-over { border-color: #f5c44a; background: rgba(245,196,74,0.08); }
+
+/* ============================================================
+   Top-up page
+   ============================================================ */
+.topup-card {
+  background: #060606;
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 16px;
+}
+.topup-amount-row { display: flex; gap: 10px; margin-top: 12px; }
+.topup-input {
+  flex: 1; min-width: 0;
+  background: rgba(255,255,255,0.06);
+  border: 0.5px solid rgba(255,255,255,0.14);
+  border-radius: 12px;
+  color: #fff; font: inherit; font-size: 14px; font-weight: 600;
+  padding: 10px 12px;
+}
+.topup-input::placeholder { color: rgba(255,255,255,0.3); font-weight: 400; }
+.topup-input:focus { outline: none; border-color: rgba(255,255,255,0.4); }
+.topup-flash { margin-top: 10px; font-size: 11px; color: rgba(255,255,255,0.45); min-height: 14px; }
+
+.pkg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.pkg-grid > .empty-note { grid-column: 1 / -1; margin-top: 0; }
+.pkg-card {
+  display: flex; flex-direction: column; gap: 5px;
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 12px;
+}
+.pkg-title { font-size: 13px; font-weight: 700; }
+.pkg-meta { font-size: 11px; color: rgba(255,255,255,0.45); }
+.pkg-price { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; }
+.pkg-card .btn { margin-top: 6px; }
+
+.req-list { display: flex; flex-direction: column; gap: 8px; }
+.req-list > .empty-note { grid-column: auto; }
+.req-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.req-text { min-width: 0; font-size: 12px; font-weight: 600; }
+.req-sub { font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 2px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.req-status {
+  flex-shrink: 0;
+  font-size: 10px; font-weight: 700;
+  padding: 3px 8px; border-radius: 999px;
+  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6);
+}
+.req-status.ok { background: rgba(74,222,128,0.15); color: #4ade80; }
+.req-status.err { background: rgba(248,113,113,0.15); color: #f87171; }
+.hint-note { margin-top: 10px; font-size: 11px; color: rgba(255,255,255,0.35); }
+.hint-note code { color: rgba(255,255,255,0.55); }

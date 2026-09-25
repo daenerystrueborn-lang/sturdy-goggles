@@ -123,6 +123,7 @@
     }
   }
 
+  window.Astral.registerPage("home", boot);
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();

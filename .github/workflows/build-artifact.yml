@@ -70,7 +70,7 @@ jobs:
       - name: Package app
         run: |
           mkdir -p dist/astral-of-the-sun
-          cp -r index.html season.html shop.html profile.html css js assets dist/astral-of-the-sun/ 2>/dev/null || true
+          cp -r index.html season.html shop.html profile.html topup.html css js assets dist/astral-of-the-sun/ 2>/dev/null || true
           echo "Artifact prepared: astral-of-the-sun/"
 
       - name: Upload artifact
