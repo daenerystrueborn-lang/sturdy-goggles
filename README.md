@@ -15,9 +15,10 @@ A data-driven companion app — plain HTML/CSS/JS, no framework or build step, s
 
 ```
 index.html / season.html / shop.html / profile.html     Pages
-css/styles.css                                           All styling (Poppins + Montserrat)
+css/styles.css                                           All styling + @font-face (self-hosted Poppins & Montserrat)
 js/navigator.js                                          Shared shell: fonts, nav, starfield, empty data layer
 js/app.js / js/season.js / js/shop.js / js/profile.js   Per-page renderers
+assets/fonts/                                            Poppins & Montserrat woff2 (bundled — no CDN needed)
 assets/                                                  Reserved for real images / assets (empty)
 .github/workflows/                                       Build + upload-artifact workflow
 ```
