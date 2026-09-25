@@ -166,6 +166,7 @@
     if (A.loadData) A.loadData().then(() => { renderProfile(); }).catch(() => {});
   }
 
+  window.Astral.registerPage("profile", boot);
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();
